@@ -66,3 +66,12 @@ with open("artifacts/metrics.json","w") as f:
     json.dump({"split":"70/15/15","model":"LogReg(balanced)","test":metrics}, f, indent=2)
 
 print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json")
+
+# Extra fairness prep (group by sex)
+df_test = pd.concat([X_test.reset_index(drop=True),
+                     pd.Series(y_test, name="readmitted")], axis=1)
+results = df_test.groupby("sex_M")["readmitted"].mean().to_dict()
+with open("artifacts/fairness_preview.json", "w") as f:
+    json.dump(results, f, indent=2)
+print("Saved fairness_preview.json", results)
+
