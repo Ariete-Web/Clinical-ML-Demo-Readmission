@@ -1,10 +1,10 @@
 # feat: baseline trainer
 # Trains a simple model, saves figures + metrics + fairness preview (to artifacts/)
+
 import json
 from pathlib import Path
 
 # Use a non-GUI backend so plots work on GitHub Actions
-
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
