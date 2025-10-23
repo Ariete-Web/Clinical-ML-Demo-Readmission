@@ -8,6 +8,8 @@ on:
       - train_baseline.py
       - requirements.txt
       - .github/workflows/train.yml
+permissions:
+  contents: write
 
 jobs:
   build:
