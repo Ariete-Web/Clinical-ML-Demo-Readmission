@@ -1,0 +1,45 @@
+name: Generate Data & Train Baseline
+
+on:
+  workflow_dispatch:   # click-to-run
+  push:
+    paths:
+      - src/gen_synthetic_data.py
+      - train_baseline.py
+      - requirements.txt
+      - .github/workflows/train.yml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install packages
+        run: pip install -r requirements.txt
+
+      - name: Generate synthetic data
+        run: python src/gen_synthetic_data.py
+
+      - name: Train baseline model
+        run: python train_baseline.py
+
+      - name: Upload figures as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: clinical-figures
+          path: figures/*.png
+
+      - name: Commit generated files to repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/synthetic_readmission.csv figures/*.png artifacts/metrics.json || true
+          git commit -m "ci: add data + baseline outputs [skip ci]" || echo "Nothing to commit"
+          git push
