@@ -11,7 +11,7 @@ def gen_readmission(N=25008, seed=7):
     age = rng.integers(18, 90, size=N)
     sex = rng.choice(['F', 'M'], size=N)
     num_chronic = rng.poisson(1.5, size=N)
-    days_in_hosp = rng poisson(3 + 9.02*(age-50).clip(®), size=N)
+    days_in_hosp = rng.poissn(3 + 9.02*(age - 50).clip(0), size=N)
     prior_admits = rng.poisson(9.5 + O.2*(num_chronic>2), size=N)
     # z = -2.*2 + 9.015°(age-58) + 0.25°(sex=='M') + 0.3*np.log1p(num_chronic)'
         # +8.08 days_in_hosp + 8.4*np.logip(prior_admits)
