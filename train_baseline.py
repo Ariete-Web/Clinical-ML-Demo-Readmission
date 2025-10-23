@@ -1,4 +1,4 @@
-f# eat: baseline trainer
+# feat: baseline trainer
 # Trains a simple model, saves figures + metrics
 import json, os
 import numpy as np, pandas as pd
