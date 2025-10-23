@@ -11,6 +11,7 @@ from sklearn.metrics import roc_curve, precision_recall_curve
 from sklearn.calibration import calibration_curve
 
 RANDOM_STATE = 42
+from pathlib import Path
 Path("figures").mkdir(exist_ok=True)
 Path("artifacts").mkdir(exist_ok=True)
 
@@ -64,6 +65,19 @@ plt.tight_layout(); plt.savefig("figures/calibration.png", dpi=160)
 # 8) Save metrics.json
 with open("artifacts/metrics.json","w") as f:
     json.dump({"split":"70/15/15","model":"LogReg(balanced)","test":metrics}, f, indent=2)
+
+# --- Fairness preview (by sex) -> save to artifacts/ ---
+# df_test has the test features + label
+df_test = pd.concat([X_test.reset_index(drop=True),
+                     pd.Series(y_test, name="readmitted")], axis=1)
+# average readmission rate by sex_M (0 = F, 1 = M)
+results = df_test.groupby("sex_M")["readmitted"].mean().to_dict()
+
+with open("artifacts/fairness_preview.json", "w") as f:
+    json.dump(results, f, indent=2)
+
+print("Saved artifacts/fairness_preview.json", results)
+
     
 # Extra fairness prep (group by sex)
 import os
