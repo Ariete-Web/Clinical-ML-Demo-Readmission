@@ -1,4 +1,4 @@
-# f eat: data generator
+# feat: data generator
 # Makes data/synthetic_readmission.csv (no downloads needed)
 import numpy as np
 import pandas as pd
