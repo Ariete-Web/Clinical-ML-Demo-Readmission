@@ -75,6 +75,6 @@ with open("artifacts/fairness_preview.json", "w") as f:
     
 print("Saved fairness_preview.json", results)
 
-print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json")
+print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json, artifacts/fairness_preview.json")
 
 print("Saved: artifacts/fairness_preview.json", results)
