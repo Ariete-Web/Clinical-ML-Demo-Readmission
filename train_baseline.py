@@ -64,10 +64,7 @@ plt.tight_layout(); plt.savefig("figures/calibration.png", dpi=160)
 # 8) Save metrics.json
 with open("artifacts/metrics.json","w") as f:
     json.dump({"split":"70/15/15","model":"LogReg(balanced)","test":metrics}, f, indent=2)
-
-print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json")
-
-
+    
 # Extra fairness prep (group by sex)
 df_test = pd.concat([X_test.reset_index(drop=True),
                      pd.Series(y_test, name="readmitted")], axis=1)
@@ -78,5 +75,6 @@ with open("artifacts/fairness_preview.json", "w") as f:
     
 print("Saved fairness_preview.json", results)
 
+print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json")
 
 print("Saved: artifacts/fairness_preview.json", results)
