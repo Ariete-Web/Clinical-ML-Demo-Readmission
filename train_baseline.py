@@ -66,14 +66,16 @@ with open("artifacts/metrics.json","w") as f:
     json.dump({"split":"70/15/15","model":"LogReg(balanced)","test":metrics}, f, indent=2)
     
 # Extra fairness prep (group by sex)
+import os
+os.makedirs("artifacts", exist_ok=True)  # make sure folder exists
 df_test = pd.concat([X_test.reset_index(drop=True),
                      pd.Series(y_test, name="readmitted")], axis=1)
 results = df_test.groupby("sex_M")["readmitted"].mean().to_dict()
 
 with open("artifacts/fairness_preview.json", "w") as f:
     json.dump(results, f, indent=2)
+print("Saved artifacts/fairness_preview.json", results) # fix: save fairness_preview.json inside artifacts/
 
-print("Saved fairness_preview.json", results)
 
 print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json")
 
