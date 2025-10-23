@@ -67,6 +67,8 @@ with open("artifacts/metrics.json","w") as f:
 
 print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json")
 
+feat: fairness preview
+
 # Extra fairness prep (group by sex)
 df_test = pd.concat([X_test.reset_index(drop=True),
                      pd.Series(y_test, name="readmitted")], axis=1)
