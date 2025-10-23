@@ -72,8 +72,8 @@ results = df_test.groupby("sex_M")["readmitted"].mean().to_dict()
 
 with open("artifacts/fairness_preview.json", "w") as f:
     json.dump(results, f, indent=2)
-    
-print("Saved: fairness_preview.json", results)
 
-print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json, artifacts/fairness_preview.json")
+print("Saved fairness_preview.json", results)
+
+print("Saved: figures/roc.png, figures/pr.png, figures/calibration.png, artifacts/metrics.json")
 
